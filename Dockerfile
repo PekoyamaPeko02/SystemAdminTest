@@ -1,23 +1,20 @@
-# ใช้ Node.js เวอร์ชันใหม่ที่รองรับ syntax
-FROM node:16
+# เลือก base image สำหรับ Node.js
+FROM node:18-alpine
 
-# ตั้งค่า working directory
+# สร้างและตั้งค่า working directory
 WORKDIR /app
 
-# คัดลอก package.json และ package-lock.json
+# คัดลอกไฟล์ package.json และ package-lock.json ไปยัง working directory
 COPY package*.json ./
 
 # ติดตั้ง dependencies
-RUN npm install --production
+RUN npm install
 
-# คัดลอกไฟล์ทั้งหมดไปยัง container
+# คัดลอกไฟล์ทั้งหมดไปยัง working directory
 COPY . .
 
-# สร้างแอปพลิเคชัน
-RUN npm run build
-
-# ตั้งค่าให้เปิด port 80
+# กำหนดพอร์ตที่แอปจะใช้
 EXPOSE 80
 
-# รันแอปพลิเคชัน
+# รันคำสั่งเพื่อเริ่มแอปพลิเคชัน
 CMD ["npm", "start"]

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: systemadmin-container
-          image: your-docker-image:latest
+          image: test:latest
           ports:
             - containerPort: 80
